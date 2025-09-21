@@ -20,6 +20,14 @@ h1, p, a{
     text-transform: capitalize;
 }
 
+h1{
+    font-size: 250%;
+}
+
+p{
+    font-size: 120%;
+}
+
 a{
     color: var(--onyx);
     text-decoration: underline;
@@ -30,25 +38,42 @@ a:hover{
 }
 
 header{
-    width: 90%;
+    min-height: 15vh;
     background-color: var(--aquamarine);
 }
 
 main{
-    width: 80%;
+    min-height: 75vh;
     background-color: var(--cadet-gray);
 }
 
-#game-board{
-    height: 400px;
-}
-
 footer{
+    min-height: 10vh;
     background-color: var(--cool-gray);
 }
 
 .container{
+    display: flex;
+    width: 100%;
     margin: 0 auto;
-    padding: 1rem 0;
-    border-radius: 5px;
+    padding: 0;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-board{
+    display: grid;
+    width: 97vw;
+    max-width: 650px;
+    height: 65vh;
+    max-height: 400px;
+    background-color: var(--mountbatten-pink);
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+}
+
+#game-board button{
+    background-color: var(--cool-gray);
+    border-width: 5px;
+    border-radius: 15px;
 }
