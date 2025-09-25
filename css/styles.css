@@ -21,6 +21,8 @@ h1, p, a{
 
 h1{
     font-size: 250%;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 p{
