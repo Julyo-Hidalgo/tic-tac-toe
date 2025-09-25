@@ -1,5 +1,7 @@
 let nextTurn = "X"; // X or O
 let numberOfMoves = 0;
+let firstPlayer = "";
+let secondPlayer = "";
 
 // Track the count of moves for each player ("X" and "O") in each row, column, and diagonal.
 let playerMoveCounts = {
@@ -24,6 +26,8 @@ let playerMoveCounts = {
 function resetGame() {
     numberOfMoves = 0;
     nextTurn = "X";
+    firstPlayer = "";
+    secondPlayer = "";
 
     playerMoveCounts["X"] = { rows: { 0: 0, 1: 0, 2: 0 }, columns: { 0: 0, 1: 0, 2: 0 }, mainDiagonal: 0, secondaryDiagonal: 0 };
     playerMoveCounts["O"] = { rows: { 0: 0, 1: 0, 2: 0 }, columns: { 0: 0, 1: 0, 2: 0 }, mainDiagonal: 0, secondaryDiagonal: 0 };
@@ -53,9 +57,13 @@ function checkResult(currentTurn, columnCount, rowCount, mainDiagonalCount, seco
 }
 
 document.getElementById('start-button').addEventListener('click', () => {
+    while(!firstPlayer) firstPlayer = window.prompt("Enter the name for Player X:");
+
+    while(!secondPlayer) secondPlayer = window.prompt("Enter the name for Player O:");
+
     document.getElementById('start-button').style.display = 'none';
     document.getElementById('game-board').style.display = 'grid';
-    document.querySelector('main p').textContent = `It's player ${nextTurn}'s turn!`;
+    document.querySelector('main p').textContent = `It's player ${(nextTurn == "X") ? firstPlayer : secondPlayer}'s turn!`;
 });
 
 const buttons = document.querySelectorAll('#game-board > button');
@@ -73,13 +81,14 @@ for (let button of buttons) {
         button.textContent = currentTurn;
         button.disabled = true;
 
+        document.querySelector('main p').textContent = `It's player ${(nextTurn == "X") ? firstPlayer : secondPlayer}'s turn!`;
+
         const rowCount = playerMoveCounts[currentTurn].rows[row];
         const columnCount = playerMoveCounts[currentTurn].columns[column];
         const mainDiagonalCount = playerMoveCounts[currentTurn].mainDiagonal;
         const secondaryDiagonalCount = playerMoveCounts[currentTurn].secondaryDiagonal;
         checkResult(currentTurn, columnCount, rowCount, mainDiagonalCount, secondaryDiagonalCount);
 
-        document.querySelector('main p').textContent = `It's player ${nextTurn}'s turn!`;
     });
 }
 
