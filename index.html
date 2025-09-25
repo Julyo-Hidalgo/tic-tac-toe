@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic tac toe</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header class="container">
@@ -12,21 +13,31 @@
     </header>
 
     <main class="container">
-        <div id="game-board">
-            <!-- Use custom data-* attributes to track the position. See: https://developer.mozilla.org/en-US/docs/Web/HTML/How_to/Use_data_attributes -->
-            <button data-row="0" data-column="0"></button>
-            <button data-row="0" data-column="1"></button>
-            <button data-row="0" data-column="2"></button>
+        <p>Click the button to start the game!</p>
+
+        <div id="game-container">
+            <button id="start-button">
+                <i style="font-size:100px; color: #8be8cbff;" class="fa">&#xf144;</i>
+            </button>
+
+            <div id="game-board">
+                <!-- Use custom data-* attributes to track the position. See: https://developer.mozilla.org/en-US/docs/Web/HTML/How_to/Use_data_attributes -->
+                <button data-row="0" data-column="0"></button>
+                <button data-row="0" data-column="1"></button>
+                <button data-row="0" data-column="2"></button>
 
 
-            <button data-row="1" data-column="0"></button>
-            <button data-row="1" data-column="1"></button>
-            <button data-row="1" data-column="2"></button>
+                <button data-row="1" data-column="0"></button>
+                <button data-row="1" data-column="1"></button>
+                <button data-row="1" data-column="2"></button>
 
-            <button data-row="2" data-column="0"></button>
-            <button data-row="2" data-column="1"></button>
-            <button data-row="2" data-column="2"></button>
-        </div>
+                <button data-row="2" data-column="0"></button>
+                <button data-row="2" data-column="1"></button>
+                <button data-row="2" data-column="2"></button>
+            </div>
+        </div> 
+        
+        <button id="reset-button">Reset game</button>
     </main>
 
     <footer class="container">
