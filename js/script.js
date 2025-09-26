@@ -2,6 +2,7 @@ let nextTurn = "X"; // X or O
 let numberOfMoves = 0;
 let firstPlayer = "";
 let secondPlayer = "";
+let firstGame = true;
 
 // Track the count of moves for each player ("X" and "O") in each row, column, and diagonal.
 let playerMoveCounts = {
@@ -24,10 +25,9 @@ let playerMoveCounts = {
 };
 
 function resetGame() {
+	firstGame = false;
     numberOfMoves = 0;
     nextTurn = "X";
-    firstPlayer = "";
-    secondPlayer = "";
 
     playerMoveCounts["X"] = { rows: { 0: 0, 1: 0, 2: 0 }, columns: { 0: 0, 1: 0, 2: 0 }, mainDiagonal: 0, secondaryDiagonal: 0 };
     playerMoveCounts["O"] = { rows: { 0: 0, 1: 0, 2: 0 }, columns: { 0: 0, 1: 0, 2: 0 }, mainDiagonal: 0, secondaryDiagonal: 0 };
@@ -57,9 +57,37 @@ function checkResult(currentTurn, columnCount, rowCount, mainDiagonalCount, seco
 }
 
 document.getElementById('start-button').addEventListener('click', () => {
-    while(!firstPlayer) firstPlayer = window.prompt("Enter the name for Player X:");
+	function askName(turn){
+		let playerName = "";
 
-    while(!secondPlayer) secondPlayer = window.prompt("Enter the name for Player O:");
+		do{
+			playerName = window.prompt(`Enter the name for Player ${turn}:`);
+			if (playerName === "") {
+				alert("Name cannot be empty. Please enter a valid name or cancel.");
+			}
+
+			if (playerName === null) {
+				return;
+			}
+
+		} while(!playerName);
+
+		return playerName;
+	}
+		
+	let usePreviousName = false;
+
+	if (firstGame == false) {
+		console.log(usePreviousName = confirm("Confirm to use the previous names."));
+	}
+
+	if (usePreviousName == false) {
+        firstPlayer = askName("X");
+		if (firstPlayer == null) return;
+
+		secondPlayer = askName("O");
+		if (secondPlayer == null) return;
+    }
 
     document.getElementById('start-button').style.display = 'none';
     document.getElementById('game-board').style.display = 'grid';
@@ -89,6 +117,7 @@ for (let button of buttons) {
         const secondaryDiagonalCount = playerMoveCounts[currentTurn].secondaryDiagonal;
         checkResult(currentTurn, columnCount, rowCount, mainDiagonalCount, secondaryDiagonalCount);
 
+        firstGame = false;
     });
 }
 
