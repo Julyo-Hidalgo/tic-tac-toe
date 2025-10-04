@@ -1,8 +1,5 @@
 let nextTurn = "X"; // X or O
 let numberOfMoves = 0;
-let firstPlayer = "";
-let secondPlayer = "";
-let firstGame = true;
 
 // Track the count of moves for each player ("X" and "O") in each row, column, and diagonal.
 let playerMoveCounts = {
@@ -25,7 +22,6 @@ let playerMoveCounts = {
 };
 
 function resetGame() {
-	firstGame = false;
     numberOfMoves = 0;
     nextTurn = "X";
 
@@ -57,41 +53,9 @@ function checkResult(currentTurn, columnCount, rowCount, mainDiagonalCount, seco
 }
 
 document.getElementById('start-button').addEventListener('click', () => {
-	function askName(turn){
-		let playerName = "";
-
-		do{
-			playerName = window.prompt(`Enter the name for Player ${turn}:`);
-			if (playerName === "") {
-				alert("Name cannot be empty. Please enter a valid name or cancel.");
-			}
-
-			if (playerName === null) {
-				return;
-			}
-
-		} while(!playerName);
-
-		return playerName;
-	}
-		
-	let usePreviousName = false;
-
-	if (firstGame == false) {
-		console.log(usePreviousName = confirm("Confirm to use the previous names."));
-	}
-
-	if (usePreviousName == false) {
-        firstPlayer = askName("X");
-		if (firstPlayer == null) return;
-
-		secondPlayer = askName("O");
-		if (secondPlayer == null) return;
-    }
-
     document.getElementById('start-button').style.display = 'none';
     document.getElementById('game-board').style.display = 'grid';
-    document.querySelector('main p').textContent = `It's player ${(nextTurn == "X") ? firstPlayer : secondPlayer}'s turn!`;
+    document.querySelector('main p').textContent = `It's player ${nextTurn}'s turn!`;
 });
 
 const buttons = document.querySelectorAll('#game-board > button');
@@ -109,15 +73,13 @@ for (let button of buttons) {
         button.textContent = currentTurn;
         button.disabled = true;
 
-        document.querySelector('main p').textContent = `It's player ${(nextTurn == "X") ? firstPlayer : secondPlayer}'s turn!`;
+        document.querySelector('main p').textContent = `It's player ${nextTurn}'s turn!`;
 
         const rowCount = playerMoveCounts[currentTurn].rows[row];
         const columnCount = playerMoveCounts[currentTurn].columns[column];
         const mainDiagonalCount = playerMoveCounts[currentTurn].mainDiagonal;
         const secondaryDiagonalCount = playerMoveCounts[currentTurn].secondaryDiagonal;
         checkResult(currentTurn, columnCount, rowCount, mainDiagonalCount, secondaryDiagonalCount);
-
-        firstGame = false;
     });
 }
 
